@@ -1,0 +1,17 @@
+
+language: generic 
+
+sudo: required
+services:
+  - docker      # Travis will install docker automatically
+
+# Execute these commands before we start the process
+before_install:
+  - docker build -t rahul9712/dev--docker--docker-react -f DockerFile.dev .
+
+script:
+  - docker run rahul9712/dev--docker--docker-react npm run test -- --coverage
+
+
+# script:
+#   - docker run rahul9712/dev--docker--docker-react npm run test -- --coverage
