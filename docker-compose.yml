@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web:
+    # build: .
+          # Build using this path, and we get error as described below
+          # Creating network "frontend_default" with the default driver
+          # Building web
+          # ERROR: Cannot locate specified Dockerfile: Dockerfile
+    build:
+      context: .                  # Setup context of, where are we building from ?
+      dockerfile: Dockerfile.dev  # Which docker file to use to build the image
+    ports:
+      - "3000:3000"               # Map port outside the container: to inside the container
+    volumes:
+      - /app/node_modules         # Bring this volume to the container
+      - .:/app                    # Map "." outside the container as a volume to within the container at "/app" location
+  tests:
+    build:
+      context: .                  # Setup context of, where are we building from ?
+      dockerfile: Dockerfile.dev  # Which docker file to use to build the image
+    volumes:
+      - /app/node_modules         # Bring this volume to the container
+      - .:/app                    # Map "." outside the container as a volume to within the container at "/app" location
+    command: ["npm", "run", "test"]
+
