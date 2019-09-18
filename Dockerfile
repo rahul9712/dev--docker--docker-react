@@ -31,6 +31,8 @@ RUN npm run build
 # Phase 2: Bring files andfrom phase 1 and run nginx
 # Base image for nginx
 FROM nginx
+# Expose default port
+EXPOSE 80
 # Copy files from builder phase <From path> <to path>
 COPY --from=builder /app/build /usr/share/nginx/html
 # No need to start enginx, as base image will take care of it
